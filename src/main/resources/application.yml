@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: vendor-payment-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vendor_payments
+    username: vps_user
+    password: vps_pass
+  jpa:
+    hibernate:
+      ddl-auto: update      # dev convenience; use Flyway/Liquibase migrations in prod
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: payment-processor
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.pranavi.vps.kafka"
+        spring.json.value.default.type: "com.pranavi.vps.kafka.PaymentEvent"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.pranavi.vps: INFO
