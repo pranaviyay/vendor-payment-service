@@ -1,5 +1,8 @@
 # Vendor Payment Processing Service
 
+[![CI](https://github.com/pranaviyay/vendor-payment-service/actions/workflows/ci.yml/badge.svg)](https://github.com/pranaviyay/vendor-payment-service/actions/workflows/ci.yml)
+![coverage](https://img.shields.io/badge/coverage-74%25-brightgreen)
+
 An event-driven microservice that ingests vendor invoices over REST and processes them
 through an asynchronous payment lifecycle using Kafka, with idempotency guarantees that
 prevent duplicate payments.
